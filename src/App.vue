@@ -1,26 +1,15 @@
 <script setup lang="ts">
+  import Card from "./components/Card.vue"
 
+  const cards = Array.from(Array(16).keys())
+
+  console.log(cards)
 </script>
 
 <template>
     <h1>Vue Memory Game</h1>
     <section class="game-board">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+      <Card v-for="(card, idx) in cards" :key="`card-${idx}`" />
     </section>
   </template>
 
@@ -38,7 +27,5 @@
     justify-content: center;
   }
 
-  .card {
-    border: 3px solid #eee;
-  }
+  
 </style>
