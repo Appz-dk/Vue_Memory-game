@@ -40,6 +40,16 @@
   const shuffleCards = () => {
     cards.value = cards.value.sort(() => Math.random() - 0.5)
   }
+  
+  const restartGame = () => {
+    shuffleCards()
+    cards.value = cards.value.map((c, idx) => ({
+      ...c,
+      isMatched: false,
+      isVisible: false,
+      position: idx
+    }))
+  }
 
 </script>
 
@@ -58,7 +68,7 @@
     <div class="game-status">
       <p v-if="remainingCards">Matches found: {{ (cards.length - remainingCards) / 2}}</p>
       <p v-else>Player wins!</p>
-      <button @click="shuffleCards">Shuffle</button>
+      <button @click="restartGame">Restart Game</button>
     </div>
   </template>
 
