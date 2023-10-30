@@ -1,20 +1,33 @@
 <script setup lang="ts">
+  import { defineProps, defineEmits, computed } from 'vue';
 
-  const props = defineProps({
+
+  const {value, shownCards} = defineProps({
     value: {
+      required: true,
       type: Number
+    },
+    shownCards: {
+      required: true,
+      type: Array
     }
   })
 
-  const isShown = false
+  const emit = defineEmits<{
+    (event: "pickCard", value: number): void
+  }>()
+
+  const isShown = computed(() => {
+    return shownCards.includes(value)
+  })
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="emit('pickCard', value)">
     <div class="card-face card-front" :class="{ 'show-card': isShown}">{{ value }}</div>
-    <div class="card-face card-back" :class="{ 'show-card': !isShown}">Back</div>
+    <div class="card-face card-back" :class="{ 'show-card': !isShown}" >Back</div>
   </div>
-</template>
+</template> 
 
 <style scoped>
   .card {
@@ -25,6 +38,7 @@
   .card-face {
     width: 100%;
     height: 100%;
+    cursor: pointer;
   }
 
   .card-front {

@@ -1,15 +1,37 @@
 <script setup lang="ts">
-  import Card from "./components/Card.vue"
+  import { ref, watch } from "vue";
+import Card from "./components/Card.vue"
 
   const cards = Array.from(Array(16).keys())
 
-  console.log(cards)
+  // TODO: When clicking a card add that card index to currentlyShownCards
+  const shownCards = ref<number[]>([])
+
+  watch(() => shownCards.value.length, () => {
+    if (shownCards.value.length === 2) {
+      setTimeout(() => {
+        shownCards.value = []
+      }, 1500)
+    }
+  })
+
+  const handleFlipCard = (value: number) => {
+    if (shownCards.value.length === 2) return
+    shownCards.value = [...shownCards.value, value]
+    console.log(shownCards.value)
+  }
+
 </script>
 
 <template>
     <h1>Vue Memory Game</h1>
     <section class="game-board">
-      <Card v-for="(card, idx) in cards" :key="`card-${idx}`" :value="card"/>
+      <Card 
+      v-for="(card, idx) in cards" :key="`card-${idx}-${Math.ceil(Math.random() * 10000000)}`" 
+      :value="card"
+      :shownCards="shownCards"
+      @pickCard="handleFlipCard"
+      />
     </section>
   </template>
 
