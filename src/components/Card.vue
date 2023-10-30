@@ -11,6 +11,10 @@
       required: true,
       type: Boolean
     },
+    isMatched: {
+      required: true,
+      type: Boolean
+    },
     cardPosition: {
       required: true,
       type: Number
@@ -24,7 +28,7 @@
 
 <template>
   <div class="card" @click="emit('pickCard', value, cardPosition)">
-    <div v-if="isVisible" class="card-face card-front">{{ value }}</div>
+    <div v-if="isVisible" class="card-face card-front">{{ value }} - {{ isMatched }}</div>
     <div v-else class="card-face card-back">Back</div>
   </div>
 </template> 
