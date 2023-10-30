@@ -2,30 +2,30 @@
   import { defineProps, defineEmits, computed } from 'vue';
 
 
-  const {value, shownCards} = defineProps({
+  const {value, isVisible, cardPosition} = defineProps({
     value: {
       required: true,
       type: Number
     },
-    shownCards: {
+    isVisible: {
       required: true,
-      type: Array
+      type: Boolean
+    },
+    cardPosition: {
+      required: true,
+      type: Number
     }
   })
 
   const emit = defineEmits<{
-    (event: "pickCard", value: number): void
+    (event: "pickCard", value: number, cardPosition: number): void
   }>()
-
-  const isShown = computed(() => {
-    return shownCards.includes(value)
-  })
 </script>
 
 <template>
-  <div class="card" @click="emit('pickCard', value)">
-    <div class="card-face card-front" :class="{ 'show-card': isShown}">{{ value }}</div>
-    <div class="card-face card-back" :class="{ 'show-card': !isShown}" >Back</div>
+  <div class="card" @click="emit('pickCard', value, cardPosition)">
+    <div v-if="isVisible" class="card-face card-front">{{ value }}</div>
+    <div v-else class="card-face card-back">Back</div>
   </div>
 </template> 
 
@@ -43,15 +43,9 @@
 
   .card-front {
     background-color: bisque;
-    display: none;
   }
 
   .card-back {
     background-color: blueviolet;
-    display: none;
-  }
-
-  .show-card {
-    display: block;
   }
 </style>

@@ -1,24 +1,27 @@
 <script setup lang="ts">
   import { ref, watch } from "vue";
-import Card from "./components/Card.vue"
+  import { cardsData } from "./data/cardData";
+  import Card from "./components/Card.vue"
 
-  const cards = Array.from(Array(16).keys())
+  const cards = ref(cardsData)
+  const selectedCards = ref<{value: number, cardPosition:number}[]>([])
 
-  // TODO: When clicking a card add that card index to currentlyShownCards
-  const shownCards = ref<number[]>([])
+  watch(selectedCards, (currentVal) => {
+    if (currentVal.length === 2) {
+      // If the cards match keep them visible
 
-  watch(() => shownCards.value.length, () => {
-    if (shownCards.value.length === 2) {
+      // Else flip the cards after timeout
       setTimeout(() => {
-        shownCards.value = []
+        selectedCards.value.forEach(c => cards.value[c.cardPosition].isVisible = false)
+        selectedCards.value = []
       }, 1500)
     }
   })
 
-  const handleFlipCard = (value: number) => {
-    if (shownCards.value.length === 2) return
-    shownCards.value = [...shownCards.value, value]
-    console.log(shownCards.value)
+  const handleFlipCard = (value: number, cardPosition: number) => {
+    if (selectedCards.value.length === 2) return
+    selectedCards.value = [...selectedCards.value, { value, cardPosition }]
+    cards.value[cardPosition].isVisible = true
   }
 
 </script>
@@ -28,8 +31,9 @@ import Card from "./components/Card.vue"
     <section class="game-board">
       <Card 
       v-for="(card, idx) in cards" :key="`card-${idx}-${Math.ceil(Math.random() * 10000000)}`" 
-      :value="card"
-      :shownCards="shownCards"
+      :value="card.value"
+      :isVisible="card.isVisible"
+      :cardPosition="card.position"
       @pickCard="handleFlipCard"
       />
     </section>
