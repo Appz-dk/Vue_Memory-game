@@ -1,12 +1,21 @@
 <script setup lang="ts">
-  import { ref, watch } from "vue";
+  import { computed, ref, watch } from "vue";
   import { cardsData } from "./data/cardData";
   import Card from "./components/Card.vue"
 
   const cards = ref(cardsData)
   const selectedCards = ref<{value: number, cardPosition:number}[]>([])
+  const remainingPairs = computed(() => {
+    return cards.value.filter(c => !c.isMatched).length
+  })
 
   watch(selectedCards, (currentVal) => {
+    // Track if game is over
+    if (!remainingPairs.value) {
+      // Game is over
+      return
+    }
+
     if (currentVal.length === 2) {
       // If the cards match keep them visible
       if (currentVal[0].value === currentVal[1].value) {
@@ -42,6 +51,10 @@
       @pickCard="handleFlipCard"
       />
     </section>
+    <div class="game-status">
+      <p v-if="remainingPairs">Matches found: {{ (cards.length - remainingPairs) / 2 }}</p>
+      <p v-else>Player wins!</p>
+    </div>
   </template>
 
 <style scoped>
@@ -56,6 +69,12 @@
     grid-template-rows: repeat(4, 100px);
     gap: 1.5rem;
     justify-content: center;
+  }
+
+  .game-status {
+    text-align: center;
+    padding-top: 1rem;
+    text-transform: uppercase;
   }
 
   
