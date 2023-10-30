@@ -5,13 +5,13 @@
 
   const cards = ref(cardsData)
   const selectedCards = ref<{value: number, cardPosition:number}[]>([])
-  const remainingPairs = computed(() => {
+  const remainingCards = computed(() => {
     return cards.value.filter(c => !c.isMatched).length
   })
 
   watch(selectedCards, (currentVal) => {
     // Track if game is over
-    if (!remainingPairs.value) {
+    if (!remainingCards.value) {
       // Game is over
       return
     }
@@ -37,6 +37,10 @@
     cards.value[cardPosition].isVisible = true
   }
 
+  const shuffleCards = () => {
+    cards.value = cards.value.sort(() => Math.random() - 0.5)
+  }
+
 </script>
 
 <template>
@@ -52,8 +56,9 @@
       />
     </section>
     <div class="game-status">
-      <p v-if="remainingPairs">Matches found: {{ (cards.length - remainingPairs) / 2 }}</p>
+      <p v-if="remainingCards">Matches found: {{ (cards.length - remainingCards) / 2}}</p>
       <p v-else>Player wins!</p>
+      <button @click="shuffleCards">Shuffle</button>
     </div>
   </template>
 
