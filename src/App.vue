@@ -9,7 +9,7 @@
 <template>
     <h1>Vue Memory Game</h1>
     <section class="game-board">
-      <Card v-for="(card, idx) in cards" :key="`card-${idx}`" />
+      <Card v-for="(card, idx) in cards" :key="`card-${idx}`" :value="card"/>
     </section>
   </template>
 
