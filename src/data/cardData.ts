@@ -8,7 +8,9 @@ export type TCard = {
 
 export  const cardsData: TCard[] = []
 
-for (let i = 0; i < 8; i++) {
+const cardPairs = 8
+
+for (let i = 0; i < cardPairs; i++) {
   cardsData.push({
     value: i,
     position: i,
@@ -17,10 +19,10 @@ for (let i = 0; i < 8; i++) {
   })
 }
 
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < cardPairs; i++) {
   cardsData.push({
     value: i,
-    position: i + 8,
+    position: i + cardPairs,
     isVisible: false,
     isMatched: false
   })
