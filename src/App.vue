@@ -32,7 +32,8 @@
   })
 
   const handleFlipCard = (value: number, cardPosition: number) => {
-    if (selectedCards.value.length === 2) return
+    const isValidFlip = selectedCards.value.every(c => c.cardPosition !== cardPosition)
+    if (selectedCards.value.length === 2 || !isValidFlip) return
     selectedCards.value = [...selectedCards.value, { value, cardPosition }]
     cards.value[cardPosition].isVisible = true
   }
@@ -40,7 +41,7 @@
   const shuffleCards = () => {
     cards.value = cards.value.sort(() => Math.random() - 0.5)
   }
-  
+
   const restartGame = () => {
     shuffleCards()
     cards.value = cards.value.map((c, idx) => ({
