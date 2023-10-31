@@ -1,5 +1,5 @@
 export type TCard = {
-  value: number;
+  value: string;
   position: number;
   isVisible: boolean
   isMatched: boolean
@@ -8,21 +8,22 @@ export type TCard = {
 
 export  const cardsData: TCard[] = []
 
-const cardPairs = 8
+const cardPairs = ["bat", "candy", "cauldron", "cupcake", "ghost", "moon", "pumpkin", "witch-hat"]
 
-for (let i = 0; i < cardPairs; i++) {
+
+for (let i = 0; i < cardPairs.length; i++) {
   cardsData.push({
-    value: i,
+    value: cardPairs[i],
     position: i,
     isVisible: false,
     isMatched: false
   })
 }
 
-for (let i = 0; i < cardPairs; i++) {
+for (let i = 0; i < cardPairs.length; i++) {
   cardsData.push({
-    value: i,
-    position: i + cardPairs,
+    value: cardPairs[i],
+    position: i + cardPairs.length,
     isVisible: false,
     isMatched: false
   })

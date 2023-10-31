@@ -81,8 +81,8 @@
   }
   .game-board {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: repeat(4, 100px);
+    grid-template-columns: repeat(4, 120px);
+    grid-template-rows: repeat(4, 120px);
     gap: 1.5rem;
     justify-content: center;
   }
