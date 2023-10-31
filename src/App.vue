@@ -69,15 +69,17 @@
     <div class="game-status">
       <p v-if="remainingCards">Matches found: {{ (cards.length - remainingCards) / 2}}</p>
       <p v-else>Player wins!</p>
-      <button @click="restartGame">Restart Game</button>
+      <button class="restart-btn" @click="restartGame">
+        <img src="/images/restart.svg" />
+        Restart Game</button>
     </div>
-  </template>
+  </template> 
 
 <style scoped>
 
   h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   .game-board {
     display: grid;
@@ -91,6 +93,22 @@
     text-align: center;
     padding-top: 1rem;
     text-transform: uppercase;
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+  }
+
+  .restart-btn {
+    background-color: orange;
+    font-weight: bold;
+    color: inherit;
+    padding: .5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border: none;
   }
 
   
