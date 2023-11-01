@@ -17,6 +17,10 @@
     cardPosition: {
       required: true,
       type: Number
+    },
+    firstGame: {
+      required: true,
+      type: Boolean,
     }
   })
 
@@ -27,7 +31,7 @@
 </script>
 
 <template>
-  <div class="card" :class="{ 'is-flipped': isVisible }" @click="emit('pickCard', value, cardPosition)">
+  <div class="card" :class="{ 'is-flipped': isVisible, 'cursor-pointer': !firstGame }" @click="emit('pickCard', value, cardPosition)">
     <div class="card-face card-front">
       <img :src="`./images/${value}.png`" :alt="`Image of a ${value}`"/>
       <img v-if="isMatched" class="checkmark" alt="A checkmark" />
@@ -41,17 +45,22 @@
   position: relative;
   transition: transform 0.5s  ease-in;
   transform-style: preserve-3d;
+  cursor: not-allowed;
+  user-select: none;
 }
 
 .card.is-flipped {
   transform: rotateY(180deg);
 }
 
+.card.cursor-pointer {
+  cursor: pointer;
+}
+
   .card-face {
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    cursor: pointer;
     position: absolute;
     backface-visibility: hidden;
   }

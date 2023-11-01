@@ -71,6 +71,7 @@ import GameButton from "./components/GameButton.vue";
       :isVisible="card.isVisible"
       :isMatched="card.isMatched"
       :cardPosition="card.position"
+      :firstGame="firstGame"
       @pickCard="handleFlipCard"
       />
     </TransitionGroup>
