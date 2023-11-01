@@ -124,4 +124,12 @@
     text-align: center;
     margin: .25rem;
   }
+
+  @media screen and (max-width: 800px) {
+    .game-board {
+      grid-template-columns: repeat(4, 85px);
+      grid-template-rows: repeat(4, 85px);
+      gap: .65rem;
+    }
+  }
 </style>
