@@ -3,6 +3,7 @@ export type TCard = {
   position: number;
   isVisible: boolean
   isMatched: boolean
+  variant: number
 }
 
 
@@ -16,7 +17,8 @@ for (let i = 0; i < cardPairs.length; i++) {
     value: cardPairs[i],
     position: i,
     isVisible: false,
-    isMatched: false
+    isMatched: false,
+    variant: 1
   })
 }
 
@@ -25,6 +27,7 @@ for (let i = 0; i < cardPairs.length; i++) {
     value: cardPairs[i],
     position: i + cardPairs.length,
     isVisible: false,
-    isMatched: false
+    isMatched: false,
+    variant: 2
   })
 }
