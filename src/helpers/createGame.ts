@@ -1,4 +1,5 @@
-import { computed, ref } from "vue"
+import { computed, ref, type Ref } from "vue"
+import type { TCard } from "../data/cardData"
 
 export const createGame = (deck: Ref<TCard[]>) => {
   const selectedCards = ref<{value: string, cardPosition:number}[]>([])
@@ -16,7 +17,7 @@ export const createGame = (deck: Ref<TCard[]>) => {
 
   const newGame = () => {
     shuffleCards()
-    deck.value = deck.value.map((c, idx) => ({
+      deck.value = deck.value.map((c, idx) => ({
       ...c,
       isMatched: false,
       isVisible: false,
