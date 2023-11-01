@@ -32,7 +32,7 @@
 <template>
   <div class="card" :class="{ 'is-flipped': isVisible, 'cursor-pointer': !firstGame }" @click="emit('pickCard', value, cardPosition)">
     <div class="card-face card-front">
-      <img :src="`/images/${value}.png`" :alt="`Image of a ${value}`"/>
+      <img :src="`./images/${value}.png`" :alt="`Image of a ${value}`"/>
       <img v-if="isMatched" class="checkmark" alt="A checkmark" />
     </div>
     <div class="card-face card-back"></div>

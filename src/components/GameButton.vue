@@ -10,7 +10,7 @@
     (event: "newGame"): void
   }>()
 
-  const btnImgSrc = firstGame ? "/images/play.svg" : "/images/restart.svg"
+  const btnImgSrc = firstGame ? "./images/play.svg" : "./images/restart.svg"
 
 </script>
 
