@@ -32,7 +32,7 @@
 <template>
   <div class="card" :class="{ 'is-flipped': isVisible, 'cursor-pointer': !firstGame }" @click="emit('pickCard', value, cardPosition)">
     <div class="card-face card-front">
-      <img :src="`./images/${value}.png`" :alt="`Image of a ${value}`"/>
+      <img :src="`/images/${value}.png`" :alt="`Image of a ${value}`"/>
       <img v-if="isMatched" class="checkmark" alt="A checkmark" />
     </div>
     <div class="card-face card-back"></div>
@@ -65,18 +65,18 @@
   }
 
   .card-face.card-front {
-    background-image: url("./images/card-bg.png");
+    background-image: url("/images/card-bg.png");
     transform: rotateY(180deg);
   } 
 
   .card-face.card-back {
-    background-image: url("./images/card-bg-empty.png");
+    background-image: url("/images/card-bg-empty.png");
   }
 
   .checkmark {
     position: absolute;
     bottom: 8px;
     right: 8px;
-    content: url("./images/checkmark.svg");
+    content: url("/images/checkmark.svg");
   }
 </style>
