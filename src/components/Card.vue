@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { defineProps, defineEmits, computed } from 'vue';
 
   const {value, isVisible, cardPosition} = defineProps({
     value: {
@@ -25,7 +24,7 @@
   })
 
   const emit = defineEmits<{
-    (event: "pickCard", value: String, cardPosition: number): void
+    (event: "pickCard", value: string, cardPosition: number): void
   }>()
   
 </script>

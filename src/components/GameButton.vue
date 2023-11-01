@@ -2,7 +2,7 @@
   const { firstGame } = defineProps({
     firstGame: {
       required: true,
-      type: String
+      type: Boolean
     }
   })
 

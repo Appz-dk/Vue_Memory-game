@@ -1,13 +1,16 @@
 {
   "name": "vue_memory-game",
   "version": "0.0.0",
+  "homepage": "https://Appz-dk.github.io/Vue_Memory-game/",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.0",
@@ -19,6 +22,7 @@
     "@types/node": "^18.18.5",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/tsconfig": "^0.4.0",
+    "gh-pages": "^6.0.0",
     "npm-run-all2": "^6.1.1",
     "typescript": "~5.2.0",
     "vite": "^4.4.11",
