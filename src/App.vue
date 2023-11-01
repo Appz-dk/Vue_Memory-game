@@ -56,16 +56,16 @@
 
 <template>
     <h1>Vue Memory Game</h1>
-    <section class="game-board">
+    <TransitionGroup tag="section" class="game-board" name="shuffle-cards">
       <Card 
-      v-for="card in cards" :key="`card-${card.value}-${card.position}`" 
+      v-for="card in cards" :key="`card-${card.value}-${card.variant}`" 
       :value="card.value"
       :isVisible="card.isVisible"
       :isMatched="card.isMatched"
       :cardPosition="card.position"
       @pickCard="handleFlipCard"
       />
-    </section>
+    </TransitionGroup>
     <div class="game-status">
       <p v-if="remainingCards">Matches found: {{ (cards.length - remainingCards) / 2}}</p>
       <p v-else>Player wins!</p>
@@ -111,5 +111,7 @@
     border: none;
   }
 
-  
+  .shuffle-cards-move {
+    transition: transform 0.8 ease-in;
+  }
 </style>

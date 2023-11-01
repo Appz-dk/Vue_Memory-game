@@ -39,7 +39,7 @@
 <style scoped>
  .card {
   position: relative;
-  transition: 0.5s transform ease-in;
+  transition: transform 0.5s  ease-in;
   transform-style: preserve-3d;
 }
 
@@ -57,7 +57,7 @@
   }
 
   .card-face.card-front {
-    background-image: url("./images/card-bg@2x.png");
+    background-image: url("./images/card-bg.png");
     transform: rotateY(180deg);
   } 
 
