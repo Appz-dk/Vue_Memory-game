@@ -6,6 +6,7 @@
 
   const cards = ref(cardsData)
   const selectedCards = ref<{value: string, cardPosition:number}[]>([])
+  const gameState = ref("Start Game")
   const remainingCards = computed(() => {
     return cards.value.filter(c => !c.isMatched).length
   })
@@ -44,7 +45,7 @@
     cards.value = cards.value.sort(() => Math.random() - 0.5)
   }
 
-  const restartGame = () => {
+  const newGame = () => {
     shuffleCards()
     cards.value = cards.value.map((c, idx) => ({
       ...c,
@@ -52,12 +53,17 @@
       isVisible: false,
       position: idx
     }))
+    gameState.value = "Restart Game"
   }
 
 </script>
 
 <template>
     <h1>Vue Memory Game</h1>
+    <button class="restart-btn" @click="newGame">
+      <img src="/images/restart.svg" />
+      {{ gameState }}
+    </button>
     <TransitionGroup tag="section" class="game-board" name="shuffle-cards">
       <Card 
       v-for="card in cards" :key="`card-${card.value}-${card.variant}`" 
@@ -71,10 +77,8 @@
     <div class="game-status">
       <p v-if="remainingCards">Matches found: {{ (cards.length - remainingCards) / 2}}</p>
       <p v-else>Player wins!</p>
-      <button class="restart-btn" @click="restartGame">
-        <img src="/images/restart.svg" />
-        Restart Game</button>
     </div>
+    <p class="made-by">Made by - PFN</p>
   </template> 
 
 <style scoped>
@@ -87,7 +91,7 @@
     display: grid;
     grid-template-columns: repeat(4, 120px);
     grid-template-rows: repeat(4, 120px);
-    gap: 1.5rem;
+    gap: .85rem;
     justify-content: center;
   }
 
@@ -111,9 +115,17 @@
     gap: 8px;
     align-items: center;
     border: none;
+    margin: 0 auto;
+    margin-bottom: 1.25rem;
   }
 
   .shuffle-cards-move {
     transition: transform 0.8 ease-in;
+  }
+
+  .made-by {
+    font-size: .85rem;
+    text-align: center;
+    margin: .25rem;
   }
 </style>
