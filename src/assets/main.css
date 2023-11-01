@@ -1,7 +1,7 @@
 #app {
   min-height: 100vh;
   padding-top: 2rem;
-  background-image: url("../../public/images/page-bg.png");
+  background-image: url("/images/page-bg.png");
   background-color: #000720;
   color: white
 }
