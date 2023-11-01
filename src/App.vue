@@ -1,38 +1,23 @@
 <script setup lang="ts">
-  import { computed, ref, watch } from "vue";
+  import { ref, watch, type Ref } from "vue";
   import { launchConfetti } from "./utils/confetti"
   import { cardsData } from "./data/cardData";
   import Card from "./components/Card.vue"
-import GameButton from "./components/GameButton.vue";
+  import GameButton from "./components/GameButton.vue";
+  import { createGame } from "./helpers/createGame";
 
   const cards = ref(cardsData)
-  const selectedCards = ref<{value: string, cardPosition:number}[]>([])
-  const firstGame = ref(true)
-  const remainingCards = computed(() => {
-    return cards.value.filter(c => !c.isMatched).length
-  })
-
+  const { firstGame, newGame, remainingCards, selectedCards } = createGame(cards)
+  
   watch(selectedCards, (currentVal) => {
     // Track if game is over
-    if (!remainingCards.value) {
-      // Game is over
+    const gameOver = !remainingCards.value
+    if (gameOver) {
       launchConfetti()
       return
     }
-
-    if (currentVal.length === 2) {
-      // If the cards match keep them visible
-      if (currentVal[0].value === currentVal[1].value) {
-        currentVal.forEach(c => cards.value[c.cardPosition].isMatched = true)
-        selectedCards.value = []
-      } else {
-        // Else flip the cards after timeout
-        setTimeout(() => {
-          currentVal.forEach(c => cards.value[c.cardPosition].isVisible = false)
-          selectedCards.value = []
-        }, 1500)
-      }
-    }
+    // Track matches
+    handleCheckMatch(currentVal, selectedCards)
   })
 
   const handleFlipCard = (value: string, cardPosition: number) => {
@@ -44,19 +29,29 @@ import GameButton from "./components/GameButton.vue";
     cards.value[cardPosition].isVisible = true
   }
 
-  const shuffleCards = () => {
-    cards.value = cards.value.sort(() => Math.random() - 0.5)
+  type SelectedCard = {
+    value: string;
+    cardPosition: number
   }
 
-  const newGame = () => {
-    shuffleCards()
-    cards.value = cards.value.map((c, idx) => ({
-      ...c,
-      isMatched: false,
-      isVisible: false,
-      position: idx
-    }))
-    firstGame.value = false
+  const handleCheckMatch = (currentCards: SelectedCard[], selectedCards: Ref<SelectedCard[]>) => {
+    // Ensure 2 cards is selected
+    if (currentCards.length === 2) {
+      const cardsMatch = currentCards[0].value === currentCards[1].value
+      if (cardsMatch) {
+        // Set matched value true
+        currentCards.forEach(c => cards.value[c.cardPosition].isMatched = true)
+        // Reset selected cards
+        selectedCards.value = []
+      } else {
+        // Else flip the cards after timeout
+        setTimeout(() => {
+          currentCards.forEach(c => cards.value[c.cardPosition].isVisible = false)
+          // Reset selected cards
+          selectedCards.value = []
+        }, 1500)
+      }
+    }
   }
 
 </script>
