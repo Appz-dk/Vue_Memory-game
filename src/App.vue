@@ -58,7 +58,7 @@
     <h1>Vue Memory Game</h1>
     <section class="game-board">
       <Card 
-      v-for="(card, idx) in cards" :key="`card-${idx}-${Math.ceil(Math.random() * 10000000)}`" 
+      v-for="card in cards" :key="`card-${card.value}-${card.position}`" 
       :value="card.value"
       :isVisible="card.isVisible"
       :isMatched="card.isMatched"

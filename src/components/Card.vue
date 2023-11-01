@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { defineProps, defineEmits, computed } from 'vue';
 
-
   const {value, isVisible, cardPosition} = defineProps({
     value: {
       required: true,
@@ -22,38 +21,47 @@
   })
 
   const emit = defineEmits<{
-    (event: "pickCard", value: number, cardPosition: number): void
+    (event: "pickCard", value: Number, cardPosition: number): void
   }>()
+  
 </script>
 
 <template>
-  <div class="card" @click="emit('pickCard', value, cardPosition)">
-    <div v-if="isVisible" class="card-face card-front">
+  <div class="card" :class="{ 'is-flipped': isVisible }" @click="emit('pickCard', value, cardPosition)">
+    <div class="card-face card-front">
       <img :src="`./images/${value}.png`" :alt="`Image of a ${value}`"/>
       <img v-if="isMatched" class="checkmark" alt="A checkmark" />
     </div>
-    <div v-else class="card-face card-back"></div>
+    <div class="card-face card-back"></div>
   </div>
 </template> 
 
 <style scoped>
-  .card {
-    text-align: center;
-  }
+ .card {
+  position: relative;
+  transition: 0.5s transform ease-in;
+  transform-style: preserve-3d;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
 
   .card-face {
     width: 100%;
     height: 100%;
     border-radius: 8px;
     cursor: pointer;
-    position: relative;
+    position: absolute;
+    backface-visibility: hidden;
   }
 
-  .card-front {
+  .card-face.card-front {
     background-image: url("./images/card-bg@2x.png");
-  }
+    transform: rotateY(180deg);
+  } 
 
-  .card-back {
+  .card-face.card-back {
     background-image: url("./images/card-bg-empty.png");
   }
 
