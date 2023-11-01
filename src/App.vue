@@ -3,10 +3,11 @@
   import { launchConfetti } from "./utils/confetti"
   import { cardsData } from "./data/cardData";
   import Card from "./components/Card.vue"
+import GameButton from "./components/GameButton.vue";
 
   const cards = ref(cardsData)
   const selectedCards = ref<{value: string, cardPosition:number}[]>([])
-  const gameState = ref("Start Game")
+  const firstGame = ref(true)
   const remainingCards = computed(() => {
     return cards.value.filter(c => !c.isMatched).length
   })
@@ -35,6 +36,8 @@
   })
 
   const handleFlipCard = (value: string, cardPosition: number) => {
+    // If game is not started yet do not allow flips
+    if (firstGame.value) return
     const isValidFlip = selectedCards.value.every(c => c.cardPosition !== cardPosition)
     if (selectedCards.value.length === 2 || !isValidFlip) return
     selectedCards.value = [...selectedCards.value, { value, cardPosition }]
@@ -53,17 +56,14 @@
       isVisible: false,
       position: idx
     }))
-    gameState.value = "Restart Game"
+    firstGame.value = false
   }
 
 </script>
 
 <template>
     <h1>Vue Memory Game</h1>
-    <button class="restart-btn" @click="newGame">
-      <img src="/images/restart.svg" />
-      {{ gameState }}
-    </button>
+    <GameButton :firstGame="firstGame" @newGame="newGame"/>
     <TransitionGroup tag="section" class="game-board" name="shuffle-cards">
       <Card 
       v-for="card in cards" :key="`card-${card.value}-${card.variant}`" 
@@ -123,7 +123,7 @@
     transition: transform 0.8 ease-in;
   }
 
-  .made-by {
+  .made-by {  
     font-size: .85rem;
     text-align: center;
     margin: .25rem;
