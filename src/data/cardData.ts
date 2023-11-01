@@ -7,27 +7,28 @@ export type TCard = {
 }
 
 
-export  const cardsData: TCard[] = []
+export const cardsData: TCard[] = []
 
 const cardPairs = ["bat", "candy", "cauldron", "cupcake", "ghost", "moon", "pumpkin", "witch-hat"]
 
+cardPairs.forEach((cardName, i) => {
+  // Make card pairs start next to each other
+  const position = i * 2
 
-for (let i = 0; i < cardPairs.length; i++) {
   cardsData.push({
-    value: cardPairs[i],
-    position: i,
+    value: cardName,
+    position: position,
     isVisible: false,
     isMatched: false,
     variant: 1
   })
-}
 
-for (let i = 0; i < cardPairs.length; i++) {
+  // Make 2nd card of pair visible at start of game
   cardsData.push({
-    value: cardPairs[i],
-    position: i + cardPairs.length,
-    isVisible: false,
+    value: cardName,
+    position: position + 1,
+    isVisible: true,
     isMatched: false,
     variant: 2
   })
-}
+})
