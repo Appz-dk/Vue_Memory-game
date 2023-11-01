@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { computed, ref, watch } from "vue";
+  import { launchConfetti } from "./utils/confetti"
   import { cardsData } from "./data/cardData";
   import Card from "./components/Card.vue"
 
@@ -13,6 +14,7 @@
     // Track if game is over
     if (!remainingCards.value) {
       // Game is over
+      launchConfetti()
       return
     }
 
