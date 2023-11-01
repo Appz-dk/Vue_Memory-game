@@ -4,7 +4,7 @@
   const {value, isVisible, cardPosition} = defineProps({
     value: {
       required: true,
-      type: Number
+      type: String
     },
     isVisible: {
       required: true,
@@ -21,7 +21,7 @@
   })
 
   const emit = defineEmits<{
-    (event: "pickCard", value: Number, cardPosition: number): void
+    (event: "pickCard", value: String, cardPosition: number): void
   }>()
   
 </script>

@@ -4,7 +4,7 @@
   import Card from "./components/Card.vue"
 
   const cards = ref(cardsData)
-  const selectedCards = ref<{value: number, cardPosition:number}[]>([])
+  const selectedCards = ref<{value: string, cardPosition:number}[]>([])
   const remainingCards = computed(() => {
     return cards.value.filter(c => !c.isMatched).length
   })
@@ -31,7 +31,7 @@
     }
   })
 
-  const handleFlipCard = (value: number, cardPosition: number) => {
+  const handleFlipCard = (value: string, cardPosition: number) => {
     const isValidFlip = selectedCards.value.every(c => c.cardPosition !== cardPosition)
     if (selectedCards.value.length === 2 || !isValidFlip) return
     selectedCards.value = [...selectedCards.value, { value, cardPosition }]
