@@ -1,6 +1,7 @@
 # Memory Game
 
-This template should help get you started developing with Vue 3 in Vite.
+I have extensive experience in React and wanted to learn Vue3. So I have coded this memory game with the intention to learn more about Vue3 and the syntax used by Vue.
+You can check out the deployment of the app here via gh-pages: https://appz-dk.github.io/Vue_Memory-game/
 
 ## Recommended IDE Setup
 
