@@ -1,6 +1,8 @@
 <script setup lang="ts">
+  // import { toRefs } from 'vue';
 
-  const {value, isVisible, cardPosition} = defineProps({
+
+  const props = defineProps({
     value: {
       required: true,
       type: String
@@ -23,6 +25,10 @@
     }
   })
 
+  // If we want to destructure props we have to do it like this
+  // Else Vue's reactivity will lost.
+  // const { value, isVisible, cardPosition } = toRefs(props)
+  
   const emit = defineEmits<{
     (event: "pickCard", value: string, cardPosition: number): void
   }>()

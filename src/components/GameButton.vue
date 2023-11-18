@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-  const { firstGame } = defineProps({
+  import { computed } from 'vue';
+
+  
+  // If you destructure props like const { firstGame } = defineProps({...})
+  // We create a non-reactive reference to the value of firstGame at that point in time
+  // and therefore Vue's reactivity will be lost.
+  // Instead we can use const { firstGame } = toRefs(props) on the props given by defineProps
+  const props = defineProps({
     firstGame: {
       required: true,
       type: Boolean
@@ -10,7 +17,7 @@
     (event: "newGame"): void
   }>()
 
-  const btnImgSrc = firstGame ? "./images/play.svg" : "./images/restart.svg"
+  const btnImgSrc = computed(() => props.firstGame ? "./images/play.svg" : "./images/restart.svg")
 
 </script>
 
@@ -19,4 +26,4 @@
       <img :src="btnImgSrc" />
       {{ firstGame ? "Start Game" : "Restart Game" }}
     </button>
-</template>
+</template> 
